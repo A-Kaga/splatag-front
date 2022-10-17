@@ -80,25 +80,43 @@
     </el-container>
 
     <el-dialog :visible.sync="dialogFormVisible" center>
+      <p>
+        使用此功能，视同使用者同意以下内容：
+      </p>
+      <ul>
+        <li>
+          我不会将生成的内容商用或谋利;
+        </li>
+        <li>
+          我不会用生成的内容来欺骗他人;
+        </li>
+        <li>
+          我不会生成违反公序良俗的内容;
+        </li>
+      </ul>
+      <p>
+        若同意，请输入显示在名片上的用户名及id
+      </p>
+
       <el-form :model="form">
-        
-        <el-row>
+        <el-row :gutter="20">
           <el-col :span="12">
             <el-form-item label="用户名">
-              <el-input v-model="form.name" autocomplete="off"></el-input>
+              <el-input v-model="form.name" autocomplete="off" style="width:250px" placeholder="名片正中心的用户名"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="id">
-              <el-input v-model="form.id" autocomplete="off"></el-input>
+              <el-input v-model="form.id" autocomplete="off" style="width:250px" placeholder="名片左下角的一串数字"
+              oninput ="value=value.replace(/[^\d]/g,'')"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
-
       </el-form>
+
       <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="dialogFormVisible = false">拒绝</el-button>
-        <el-button type="primary" @click="dialogFormVisible = false">确定</el-button>
+        <el-button type="primary" @click="getSplatag">确定</el-button>
+        <el-button type="danger" @click="dialogFormVisible = false">拒绝</el-button>
       </div>
     </el-dialog>
 
@@ -201,11 +219,22 @@ export default {
 
     toGenerate() {
       if(this.subjectiveValue == "" || this.adjectiveValue == "") {
-        this.$message.error('称号未填写完整');
+        this.$message.error('称号未填写完整')
         return
       }
       
       this.dialogFormVisible = true
+    },
+
+    getSplatag() {
+      console.log(this.backName)
+      console.log(this.badge1Value)
+      console.log(this.badge2Value)
+      console.log(this.badge3Value)
+      console.log(this.adjectiveValue)
+      console.log(this.subjectiveValue)
+      console.log(this.form.name)
+      console.log(this.form.id)
     },
 
     backSelected(item) {
