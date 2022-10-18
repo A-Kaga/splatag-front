@@ -130,6 +130,8 @@
 </template>
 
 <script>
+import {getTag} from "../api/api"
+
 export default {
   name: 'splatag',
   data () {
@@ -159,6 +161,7 @@ export default {
       badge3Value: [],
       subjectiveValue: "",
       adjectiveValue: "",
+      prefixBase64: 'data:image/png;base64,',
 
       form: {
         name: "",
@@ -227,14 +230,14 @@ export default {
     },
 
     getSplatag() {
-      console.log(this.backName)
-      console.log(this.badge1Value)
-      console.log(this.badge2Value)
-      console.log(this.badge3Value)
-      console.log(this.adjectiveValue)
-      console.log(this.subjectiveValue)
-      console.log(this.form.name)
-      console.log(this.form.id)
+      getTag(this.backName, 
+      this.badge1Value, 
+      this.badge2Value, 
+      this.badge3Value, 
+      this.adjectiveValue, 
+      this.subjectiveValue).then(res => {
+        console.log(res)
+      })
     },
 
     backSelected(item) {
